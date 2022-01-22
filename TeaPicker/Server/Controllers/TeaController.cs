@@ -7,7 +7,7 @@ namespace TeaPicker.Server.Controllers
     [Route("[controller]")]
     public class TeaController : ControllerBase
     {
-        private List<Tea> Teas = new()
+        private static List<Tea> Teas = new()
         {
             new() { Id = 1, Name = "Black", Description = "Typical black tea", BrewingTemp = 100, BrewingTime = 3, ImageUri = "https://media.istockphoto.com/photos/black-tea-in-glass-cup-picture-id177555555" }
         };
@@ -55,6 +55,9 @@ namespace TeaPicker.Server.Controllers
             {
                 oldTea.Name = newTea.Name;
                 oldTea.Description = newTea.Description;
+                oldTea.BrewingTime = newTea.BrewingTime;
+                oldTea.BrewingTemp = newTea.BrewingTemp;
+                oldTea.ImageUri = newTea.ImageUri;
 
                 return Ok(newTea);
             }
