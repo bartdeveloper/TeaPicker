@@ -65,4 +65,10 @@ a, .btn-link {
 
 .tea-img {
     width: 250px;
+    float: left;
+    padding-right: 10px;
+}
+
+.margin5 {
+    margin: 5px;
 }
