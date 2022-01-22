@@ -19,8 +19,10 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
+                <th>Preview</th>
+                <th>Name</th>
+                <th>Brewing temp</th>
+                <th>Brewing time</th>
                 <th>Description</th>
             </tr>
         </thead>
@@ -28,8 +30,10 @@ else
             @foreach (var tea in teas)
             {
                 <tr>
-                    <td>@tea.Id</td>
-                    <td>@tea.Title</td>
+                    <td><img src="@tea.ImageUri" alt="@tea.Name" style="width: 100px;"></td>
+                    <td>@tea.Name</td>
+                    <td>@tea.BrewingTemp</td>
+                    <td>@tea.BrewingTime</td>
                     <td>@tea.Description</td>
                 </tr>
             }
@@ -48,6 +52,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        teas = await Http.GetFromJsonAsync<Tea[]>("https://localhost:7262/Tea");
+        teas = await Http.GetFromJsonAsync<Tea[]>("https://localhost:7262/Tea/list");
     }
 }

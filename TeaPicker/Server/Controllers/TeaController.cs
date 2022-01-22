@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TeaPicker.Shared;
 
 namespace TeaPicker.Server.Controllers
@@ -7,19 +7,75 @@ namespace TeaPicker.Server.Controllers
     [Route("[controller]")]
     public class TeaController : ControllerBase
     {
-        private readonly ILogger<TeaController> _logger;
-
-        public TeaController(ILogger<TeaController> logger)
+        private List<Tea> Teas = new()
         {
-            _logger = logger;
+            new() { Id = 1, Name = "Black", Description = "Typical black tea", BrewingTemp = 100, BrewingTime = 3, ImageUri = "https://media.istockphoto.com/photos/black-tea-in-glass-cup-picture-id177555555" }
+        };
+
+        // Read
+        [HttpGet("{id}")]
+        public ActionResult Get(int id)
+        {
+            var coffee = Teas.Find(o => o.Id == id);
+
+            if (coffee is not null)
+            {
+                return Ok(coffee);
+            }
+
+            return NotFound("Tea not found");
         }
 
-        [HttpGet]
-        public IEnumerable<Tea> Get()
+        // Read
+        [HttpGet("list")]
+        public ActionResult List()
         {
-            List<Tea> list = new();
-            list.Add(new Tea() { Id = 1, Title = "Black", Description = "Typical tea"});
-            return list;
+            return Ok(Teas);
+        }
+
+        // Create
+        [HttpPost]
+        public ActionResult Create(Tea tea)
+        {
+            tea.Id = Teas.Count + 1;
+            Teas.Add(tea);
+
+            var newTea = Teas.Find(o => o.Id == tea.Id);
+
+            return Ok(newTea);
+        }
+
+        // Update
+        [HttpPut]
+        public ActionResult Update(Tea newTea)
+        {
+            var oldTea = Teas.FirstOrDefault(o => o.Id == newTea.Id);
+
+            if (oldTea is not null)
+            {
+                oldTea.Name = newTea.Name;
+                oldTea.Description = newTea.Description;
+
+                return Ok(newTea);
+            }
+
+            return NotFound("Tea not found");
+        }
+
+        // Delete
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            var tea = Teas.FirstOrDefault(o => o.Id == id);
+
+            if (tea is not null)
+            {
+                Teas.Remove(tea);
+
+                return Ok();
+            }
+
+            return NotFound("Tea not found");
         }
     }
 }

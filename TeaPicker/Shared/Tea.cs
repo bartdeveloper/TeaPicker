@@ -7,7 +7,7 @@ namespace TeaPicker.Shared
         public int Id { get; set; }
 
         [Required]
-        public string Title { get; set; }
+        public string Name { get; set; }
 
         [Required]
         public string Description { get; set; }
@@ -17,5 +17,7 @@ namespace TeaPicker.Shared
 
         [Required]
         public double BrewingTime { get; set; }
+
+        public string ImageUri { get; set; }
     }
 }
