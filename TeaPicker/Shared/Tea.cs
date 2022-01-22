@@ -18,6 +18,6 @@ namespace TeaPicker.Shared
         [Required]
         public double BrewingTime { get; set; }
 
-        public string ImageUri { get; set; }
+        public string? ImageUri { get; set; }
     }
 }
