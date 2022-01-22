@@ -12,33 +12,6 @@
 
     <br/><br/>
 
-    <div class="row">
-        @if (teas is null)
-        {
-            <p><em>Loading list...</em></p>
-        }
-        else 
-        {
-
-            @foreach (var tea in teas)
-            {
-                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                    <div class="card @(SelectedTea?.Id == tea.Id ? "bg-light" : "")">
-                        <div class="card-body">
-                            <h3 class="card-title">@tea.Name</h3>
-                            <p><b>Brewing temp:</b> @tea.BrewingTemp ℃ <b>time:</b> @tea.BrewingTime min</p>
-                            <img src="@tea.ImageUri" class="tea-img">
-                            <p class="card-text">@tea.Description</p>
-                            <a href="/overview" @onclick="() => GetTeaDetails(tea.Id)">More...</a>
-                        </div>
-                    </div>
-                </div>
-            }
-
-        }
-            
-    </div>
-
     <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
         @if (SelectedTea is not null)
         {
@@ -83,8 +56,38 @@
         }
     </div>
 
+    <br/>
 
+    <div class="row">
+        @if (teas is null)
+        {
+            <p><em>Loading list...</em></p>
+        }
+        else 
+        {
 
+            @foreach (var tea in teas)
+            {
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
+                    <div class="card @(SelectedTea?.Id == tea.Id ? "bg-light" : "")">
+                        <div class="card-body">
+                            <h3 class="card-title">@tea.Name</h3>
+                            <p><b>Brewing temp:</b> @tea.BrewingTemp ℃ <b>time:</b> @tea.BrewingTime min</p>
+                            <img src="@tea.ImageUri" class="tea-img">
+                            <p class="card-text">@tea.Description</p>
+                            <a href="/overview" @onclick="() => GetTeaDetails(tea.Id)">More...</a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        }
+            
+    </div>
+
+    <br/>
+
+    Source of teas description: https://www.artfultea.com/tea-wisdom-1/types-of-tea-a-comprehensive-guide
 
 
 @code {
