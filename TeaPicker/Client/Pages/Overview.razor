@@ -1,0 +1,53 @@
+﻿@page "/overview"
+@using TeaPicker.Shared
+@inject HttpClient Http
+
+<PageTitle>Teas overview</PageTitle>
+
+<h1>🍵 Teas overview</h1>
+
+<p>This component shows the list of teas. </p>
+
+<button class="btn btn-primary" @onclick="Koko">@currentCount</button>
+
+@if (teas == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tea in teas)
+            {
+                <tr>
+                    <td>@tea.Id</td>
+                    <td>@tea.Title</td>
+                    <td>@tea.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Tea[]? teas;
+    private int currentCount = 0;
+
+    private void Koko()
+    {
+        currentCount++;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        teas = await Http.GetFromJsonAsync<Tea[]>("https://localhost:7262/Tea");
+    }
+}
