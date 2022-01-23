@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
+using TeaPicker.DataAccess;
+using TeaPicker.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,14 +12,20 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: "MyCORS",
+    options.AddPolicy(name: "AllowAnyOrigin",
                       builder =>
                       {
-                          builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                          builder.AllowAnyOrigin();
                       });
 });
 
+builder.Services.AddDbContext<TeaPickerDbContext>(options =>
+            options.UseInMemoryDatabase(databaseName: "TeaPickerDB"));
+
+builder.Services.AddScoped<ITeaService, TeaService>();
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -37,10 +46,17 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseCors("MyCORS");
+app.UseCors("AllowAnyOrigin");
 
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
+
+var serviceScopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
+using (var serviceScope = serviceScopeFactory.CreateScope())
+{
+    var dbContext = serviceScope.ServiceProvider.GetService<TeaPickerDbContext>();
+    dbContext.Database.EnsureCreated();
+}
 
 app.Run();

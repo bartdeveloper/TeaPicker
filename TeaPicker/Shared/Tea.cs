@@ -4,6 +4,8 @@ namespace TeaPicker.Shared
 {
     public class Tea
     {
+
+        [Key]
         public int Id { get; set; }
 
         [Required]
@@ -18,6 +20,6 @@ namespace TeaPicker.Shared
         [Required]
         public double BrewingTime { get; set; }
 
-        public string? ImageUri { get; set; }
+        public string ImageUri { get; set; }
     }
 }
