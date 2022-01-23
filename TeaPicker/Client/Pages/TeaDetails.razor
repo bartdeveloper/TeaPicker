@@ -1,0 +1,117 @@
+﻿@page "/details/{teaId}"
+@using TeaPicker.Shared
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+    <h3>Tea details</h3>
+
+
+
+        @if (tea is null)
+        {
+            <p><em>Loading list...</em></p>
+        }
+        else 
+        {
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
+                <div class="card-body">
+                    <h3 class="card-title">@tea.Name</h3>
+                    <p><b>Brewing temp:</b> @tea.BrewingTemp ℃ <b>time:</b> @tea.BrewingTime min</p>
+                    <img src="@tea.ImageUri" class="tea-img">
+                    <p class="card-text">@tea.Description</p>
+                    <br/>
+                    <button type="button" @onclick="() => editMode = !editMode" class="btn btn-warning float-right">Edit</button>
+                </div>
+            </div>
+
+        }
+            
+    
+
+    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+        @if (tea is not null && editMode)
+        {
+        <EditForm class="container" Model="tea" OnValidSubmit="TeaValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group">
+                <label for="title">Title</label>
+                <InputText id="title" @bind-Value="tea.Name" placeholder="Tea name..." class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <InputTextArea id="description" @bind-Value="tea.Description" placeholder="Description..." class="form-control" rows="7" />
+            </div>
+
+            <div class="form-group">
+                <label for="title">Brewing temp</label>
+                <InputNumber id="title" @bind-Value="tea.BrewingTemp" placeholder="Brewing temp..." class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="title">Brewing time</label>
+                <InputNumber id="title" @bind-Value="tea.BrewingTime" placeholder="Brewing time..." class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="title">Image uri</label>
+                <InputText id="title" @bind-Value="tea.ImageUri" placeholder="Image uri..." class="form-control" />
+            </div>
+
+            <br/>
+
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-success">Update</button>
+                </div>
+                <div class="col">
+                    <button type="button" @onclick="DeleteTea" class="btn btn-danger float-right">Delete</button>
+                </div>
+            </div>
+        </EditForm>
+        }
+    </div>
+
+    <Footer Text="2022" />
+
+@code {
+
+    [Parameter]
+    public string TeaId { get; set; }
+    private Tea tea;
+    private bool editMode = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetTeaDetails(Int32.Parse(TeaId));
+    }
+	
+    async Task GetTeaDetails(int id)
+    {
+        tea = new();
+        tea = await Http.GetFromJsonAsync<Tea>($"Tea/{id}");
+    }
+
+     async Task TeaValidSubmit()
+    {
+        HttpResponseMessage response;
+
+        response = await Http.PutAsJsonAsync<Tea>("Tea", tea);
+
+        if (response.IsSuccessStatusCode)
+        {
+            tea = await response.Content.ReadFromJsonAsync<Tea>();
+        }
+
+    }
+    
+    async Task DeleteTea()
+    {
+        var response = await Http.DeleteAsync($"Tea/{tea.Id}");
+        NavigationManager.NavigateTo($"/overview");
+    }
+
+}
