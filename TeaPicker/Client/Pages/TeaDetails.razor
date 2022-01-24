@@ -1,5 +1,5 @@
-﻿@page "/details/{teaId}"
-@using TeaPicker.Shared
+﻿@page "/details/{teaId:int}"
+@using TeaPicker.DataAccess.Models
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
 
@@ -16,12 +16,10 @@
 
             <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
                 <div class="card-body">
-                    <h3 class="card-title">@tea.Name</h3>
+                    <h3 class="card-title">@tea.Name</h3> <button type="button" @onclick="() => editMode = !editMode" class="btn btn-warning float-right">Edit</button>
                     <p><b>Brewing temp:</b> @tea.BrewingTemp ℃ <b>time:</b> @tea.BrewingTime min</p>
                     <img src="@tea.ImageUri" class="tea-img">
                     <p class="card-text">@tea.Description</p>
-                    <br/>
-                    <button type="button" @onclick="() => editMode = !editMode" class="btn btn-warning float-right">Edit</button>
                 </div>
             </div>
 
@@ -80,13 +78,13 @@
 @code {
 
     [Parameter]
-    public string TeaId { get; set; }
+    public int TeaId { get; set; }
     private Tea tea;
     private bool editMode = false;
 
     protected override async Task OnInitializedAsync()
     {
-        await GetTeaDetails(Int32.Parse(TeaId));
+        await GetTeaDetails(TeaId);
     }
 	
     async Task GetTeaDetails(int id)

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TeaPicker.DataAccess;
+using TeaPicker.DataAccess.Models;
 using TeaPicker.Server.Services;
-using TeaPicker.Shared;
 
 namespace TeaPicker.Server.Controllers
 {

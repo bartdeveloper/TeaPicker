@@ -1,5 +1,6 @@
-﻿using TeaPicker.DataAccess;
-using TeaPicker.Shared;
+﻿
+using TeaPicker.DataAccess.Data;
+using TeaPicker.DataAccess.Models;
 
 namespace TeaPicker.Server.Services
 {

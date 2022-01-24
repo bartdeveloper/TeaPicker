@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeaPicker.Server", "TeaPick
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeaPicker.Client", "TeaPicker\Client\TeaPicker.Client.csproj", "{36AF5004-621F-4EEC-B950-2430DC8195B5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeaPicker.Shared", "TeaPicker\Shared\TeaPicker.Shared.csproj", "{EF561A41-83FB-497F-A25B-AD11F2630344}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeaPicker.DataAccess", "TeaPicker\DataAccess\TeaPicker.DataAccess.csproj", "{9B20FFE4-A85B-4C81-9971-593F73A3A028}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeaPicker.DataAccess", "TeaPicker\DataAccess\TeaPicker.DataAccess.csproj", "{9B20FFE4-A85B-4C81-9971-593F73A3A028}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{36AF5004-621F-4EEC-B950-2430DC8195B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36AF5004-621F-4EEC-B950-2430DC8195B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36AF5004-621F-4EEC-B950-2430DC8195B5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EF561A41-83FB-497F-A25B-AD11F2630344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF561A41-83FB-497F-A25B-AD11F2630344}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF561A41-83FB-497F-A25B-AD11F2630344}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EF561A41-83FB-497F-A25B-AD11F2630344}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9B20FFE4-A85B-4C81-9971-593F73A3A028}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9B20FFE4-A85B-4C81-9971-593F73A3A028}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B20FFE4-A85B-4C81-9971-593F73A3A028}.Release|Any CPU.ActiveCfg = Release|Any CPU

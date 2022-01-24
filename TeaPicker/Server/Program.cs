@@ -1,6 +1,5 @@
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
-using TeaPicker.DataAccess;
+using TeaPicker.DataAccess.Data;
 using TeaPicker.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);

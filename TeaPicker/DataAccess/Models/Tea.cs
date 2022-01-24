@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace TeaPicker.Shared
+namespace TeaPicker.DataAccess.Models
 {
     public class Tea
     {
@@ -9,15 +9,19 @@ namespace TeaPicker.Shared
         public int Id { get; set; }
 
         [Required]
+        [StringLength(100, MinimumLength = 10)]
         public string Name { get; set; }
 
         [Required]
+        [StringLength(1024, ErrorMessage = "The description is too long, try a shorter one (1024 characters limit)")]
         public string Description { get; set; }
 
         [Required]
+        [Range(0.0, 100, ErrorMessage = "The field {0} must be greater than {1} and less than {2}")]
         public double BrewingTemp { get; set; }
 
         [Required]
+        [Range(1, 15)]
         public double BrewingTime { get; set; }
 
         public string ImageUri { get; set; }
