@@ -9,7 +9,7 @@ namespace TeaPicker.DataAccess.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(100, MinimumLength = 10)]
+        [StringLength(100, MinimumLength = 5)]
         public string Name { get; set; }
 
         [Required]

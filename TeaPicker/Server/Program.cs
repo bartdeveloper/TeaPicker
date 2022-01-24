@@ -5,7 +5,6 @@ using TeaPicker.Server.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
@@ -19,7 +18,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddDbContext<TeaPickerDbContext>(options =>
-            options.UseInMemoryDatabase(databaseName: "TeaPickerDB"));
+            options.UseInMemoryDatabase(databaseName: builder.Configuration.GetValue<string>("DBName")));
 
 builder.Services.AddScoped<ITeaService, TeaService>();
 
