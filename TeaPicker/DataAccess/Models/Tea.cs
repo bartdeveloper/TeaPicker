@@ -17,13 +17,13 @@ namespace TeaPicker.DataAccess.Models
         public string Description { get; set; }
 
         [Required]
-        [Range(0.0, 100, ErrorMessage = "The field {0} must be greater than {1} and less than {2}")]
+        [Range(0.0, 100)]
         public double BrewingTemp { get; set; }
 
         [Required]
         [Range(1, 15)]
         public double BrewingTime { get; set; }
 
-        public string ImageUri { get; set; }
+        public string? ImageUri { get; set; }
     }
 }

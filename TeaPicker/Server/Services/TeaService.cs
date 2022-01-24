@@ -24,7 +24,7 @@ namespace TeaPicker.Server.Services
 
         public List<Tea> List()
         {
-            return _context.Teas.ToList();
+            return _context.Teas.OrderByDescending(x => x.Id).ToList();
         }
 
         public Tea Update(Tea newTea)

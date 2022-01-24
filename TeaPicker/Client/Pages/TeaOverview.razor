@@ -2,6 +2,7 @@
 @using TeaPicker.DataAccess.Models
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
+@inject IToastService toastService
 
 <PageTitle>Teas overview</PageTitle>
 
@@ -9,7 +10,7 @@
 
 <p>This component shows the list of teas. </p>
 
-    <button class="btn btn-primary" @onclick="ShowCreateMode">Create new</button>
+    <button class="btn btn-primary" @onclick="ShowCreateMode"><span class="oi oi-plus" aria-hidden="true"></span> Create new</button>
 
     <br/><br/>
 
@@ -120,11 +121,15 @@
         HttpResponseMessage response;
 
         response = await Http.PostAsJsonAsync<Tea>("Tea", SelectedTea);
-   
+
         if (response.IsSuccessStatusCode)
         {
             SelectedTea = await response.Content.ReadFromJsonAsync<Tea>();
             teas = await GetTeas();
+            toastService.ShowSuccess("Added!");
+        } else
+        {
+            toastService.ShowError("Something went wrong!");
         }
 
     }

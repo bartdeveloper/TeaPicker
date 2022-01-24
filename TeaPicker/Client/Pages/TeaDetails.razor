@@ -2,6 +2,7 @@
 @using TeaPicker.DataAccess.Models
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
+@inject IToastService toastService
 
     <h3>Tea details</h3>
 
@@ -14,7 +15,8 @@
 
         <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
             <div class="card-body">
-                <h3 class="card-title">@tea.Name</h3> <button type="button" @onclick="() => editMode = !editMode" class="btn btn-warning float-right">Edit</button>
+                <h3 class="card-title">@tea.Name</h3> 
+                <button type="button" @onclick="() => editMode = !editMode" class="btn btn-warning float-right"><span class="oi oi-pencil" aria-hidden="true"></span> Edit</button>
                 <p><b>Brewing temp:</b> @tea.BrewingTemp ℃ <b>time:</b> @tea.BrewingTime min</p>
                 <img src="@tea.ImageUri" class="tea-img">
                 <p class="card-text">@tea.Description</p>
@@ -59,10 +61,10 @@
 
             <div class="row">
                 <div class="col">
-                    <button type="submit" class="btn btn-success">Update</button>
+                    <button type="submit" class="btn btn-success"><span class="oi oi-check" aria-hidden="true"></span> Update</button>
                 </div>
                 <div class="col">
-                    <button type="button" @onclick="DeleteTea" class="btn btn-danger float-right">Delete</button>
+                    <button type="button" @onclick="DeleteTea" class="btn btn-danger float-right"><span class="oi oi-trash" aria-hidden="true"></span> Delete</button>
                 </div>
             </div>
         </EditForm>
@@ -80,14 +82,14 @@
     {
         await GetTeaDetails(TeaId);
     }
-	
+
     async Task GetTeaDetails(int id)
     {
         tea = new();
         tea = await Http.GetFromJsonAsync<Tea>($"Tea/{id}");
     }
 
-     async Task TeaValidSubmit()
+    async Task TeaValidSubmit()
     {
         HttpResponseMessage response;
 
@@ -96,6 +98,10 @@
         if (response.IsSuccessStatusCode)
         {
             tea = await response.Content.ReadFromJsonAsync<Tea>();
+            toastService.ShowSuccess("Successfully updated");
+        } else
+        {
+            toastService.ShowError("Something went wrong!");
         }
 
     }
@@ -103,6 +109,7 @@
     async Task DeleteTea()
     {
         var response = await Http.DeleteAsync($"Tea/{tea.Id}");
+        toastService.ShowInfo("Deleted!");
         NavigationManager.NavigateTo($"/overview");
     }
 
