@@ -18,8 +18,7 @@ namespace TeaPicker.Server.Controllers
         // Create
         [HttpPost]
         public ActionResult Create(Tea tea)
-        {
-      
+        {  
             var newTea = _teaService.Create(tea);
 
             return Ok(newTea);
@@ -29,7 +28,7 @@ namespace TeaPicker.Server.Controllers
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
-            var tea = _teaService.Get(id);
+            var tea = _teaService.GetById(id);
 
             if (tea is not null)
             {

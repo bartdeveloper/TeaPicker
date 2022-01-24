@@ -73,8 +73,12 @@ a, .btn-link {
     margin: 5px;
 }
 
+.splash-img {
+    max-width: 80vw;
+}
+
 .pointer {
     cursor: pointer;
-    background-color: #dfdcdc;
-    height: 300px;
+    background-color: #f1f1ff;
+    min-height: 330px;
 }

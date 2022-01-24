@@ -1,17 +1,14 @@
 ﻿
 using TeaPicker.DataAccess.Data;
 using TeaPicker.DataAccess.Models;
+using TeaPicker.DataAccess.Repository;
 
 namespace TeaPicker.Server.Services
 {
-    public class TeaService : ITeaService
+    public class TeaService : Repository<Tea>, ITeaService
     {
-        private readonly TeaPickerDbContext _context;
 
-        public TeaService(TeaPickerDbContext context)
-        {
-            _context = context;
-        }
+        public TeaService(TeaPickerDbContext ctx) : base(ctx) { }
 
         public Tea Create(Tea tea)
         {
