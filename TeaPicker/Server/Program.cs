@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddDbContext<TeaPickerDbContext>(options =>
-            options.UseInMemoryDatabase(databaseName: builder.Configuration.GetValue<string>("DBName")));
+            options.UseInMemoryDatabase(databaseName: builder.Configuration.GetValue<string>("DB:Name")));
 
 builder.Services.AddScoped<ITeaService, TeaService>();
 
