@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using TeaPicker.DataAccess.Data;
 using TeaPicker.Server.Services;
 
@@ -17,8 +18,8 @@ builder.Services.AddCors(options =>
                       });
 });
 
-builder.Services.AddDbContext<TeaPickerDbContext>(options =>
-            options.UseInMemoryDatabase(databaseName: builder.Configuration.GetValue<string>("DB:Name")));
+//builder.Services.AddDbContext<TeaPickerDbContext>(options => options.UseInMemoryDatabase(databaseName: builder.Configuration.GetValue<string>("DB:Name")));
+builder.Services.AddDbContext<TeaPickerDbContext>(options => options.UseSqlite($"Filename={builder.Configuration.GetValue<string>("DB:Name")}.db"));
 
 builder.Services.AddScoped<ITeaService, TeaService>();
 
