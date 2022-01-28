@@ -10,54 +10,9 @@
 
 <p>This component shows the list of teas. </p>
 
-    <button class="btn btn-primary" @onclick="ShowCreateMode"><span class="oi oi-plus" aria-hidden="true"></span> Create new</button>
+    <button class="btn btn-primary" @onclick="() => RedirectToCreate()"><span class="oi oi-plus" aria-hidden="true"></span> Create new</button>
 
     <br/><br/>
-
-    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-        @if (CreatorMode)
-        {
-        <EditForm class="container" Model="SelectedTea" OnValidSubmit="TeaValidSubmit">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
-
-            <div class="form-group">
-                <label for="title">Title</label>
-                <InputText id="title" @bind-Value="SelectedTea.Name" placeholder="Tea name..." class="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label for="description">Description</label>
-                <InputTextArea id="description" @bind-Value="SelectedTea.Description" placeholder="Description..." class="form-control" rows="7" />
-            </div>
-
-            <div class="form-group">
-                <label for="title">Brewing temp</label>
-                <InputNumber id="title" @bind-Value="SelectedTea.BrewingTemp" placeholder="Brewing temp..." class="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label for="title">Brewing time</label>
-                <InputNumber id="title" @bind-Value="SelectedTea.BrewingTime" placeholder="Brewing time..." class="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label for="title">Image uri</label>
-                <InputText id="title" @bind-Value="SelectedTea.ImageUri" placeholder="Image uri..." class="form-control" />
-            </div>
-
-            <br/>
-
-            <div class="row">
-                <div class="col">
-                    <button type="submit" class="btn btn-success">Add</button>
-                </div>
-            </div>
-        </EditForm>
-        }
-    </div>
-
-    <br/>
 
     <div class="row">
         @if (teas is null)
@@ -74,7 +29,7 @@
             if (tea.Description.Length < 100) cut = tea.Description.Length;
 
                 <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                    <div @onclick="() => RedirectTo(tea.Id)" class="pointer margin5 card @(SelectedTea?.Id == tea.Id ? "bg-light" : "")">
+                    <div @onclick="() => RedirectToTea(tea.Id)" class="pointer margin5 card @(SelectedTea?.Id == tea.Id ? "bg-light" : "")">
                         <div class="card-body">
                             <h3 class="card-title">@tea.Name</h3>
                             <p><b>Brewing temp:</b> @tea.BrewingTemp ℃ <b>time:</b> @tea.BrewingTime min</p>
@@ -106,7 +61,12 @@
         teas = await GetTeas();
     }
 
-    private void RedirectTo(int teaId)
+    private void RedirectToCreate()
+    {
+        NavigationManager.NavigateTo("/create");
+    }
+
+    private void RedirectToTea(int teaId)
     {
         NavigationManager.NavigateTo($"/details/{teaId}");
     }
