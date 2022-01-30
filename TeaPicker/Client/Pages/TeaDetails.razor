@@ -64,9 +64,12 @@
                 <div class="col">
                     <button type="submit" class="btn btn-success"><span class="oi oi-check" aria-hidden="true"></span> Save</button>
                 </div>
-                <div class="col">
-                    <button type="button" @onclick="DeleteTea" class="btn btn-danger float-right"><span class="oi oi-trash" aria-hidden="true"></span> Delete</button>
+                @if (TeaId is not null)
+                {
+                    <div class="col">
+                        <button type="button" @onclick="DeleteTea" class="btn btn-danger float-right"><span class="oi oi-trash" aria-hidden="true"></span> Delete</button>
                 </div>
+                }
             </div>
         </EditForm>
         }
