@@ -10,7 +10,7 @@ namespace TeaPicker.DataAccess.Repository
     public interface IRepository<T> where T : class
     {
         T Create(T entity); 
-        T? GetById(int id);
+        T GetById(int id);
         IEnumerable<T> List();
         IEnumerable<T> Find(Expression<Func<T, bool>> expression);
         public T Update(T entity);

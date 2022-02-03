@@ -24,6 +24,7 @@ namespace TeaPicker.DataAccess.Models
         [Range(1, 15)]
         public double BrewingTime { get; set; }
 
-        public string? ImageUri { get; set; }
+        public string ImageUri { get; set; }
+
     }
 }

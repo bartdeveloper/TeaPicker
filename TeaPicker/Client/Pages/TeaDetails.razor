@@ -92,7 +92,6 @@
 
     async Task GetTeaDetails(int? id)
     {
-
         tea = await Http.GetFromJsonAsync<Tea>($"Tea/{id}");
     }
 

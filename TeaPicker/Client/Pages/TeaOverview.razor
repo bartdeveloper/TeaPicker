@@ -54,7 +54,6 @@
 
     private List<Tea> teas = new();
     private Tea SelectedTea;
-    private bool CreatorMode = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -84,7 +83,6 @@
 
         if (response.IsSuccessStatusCode)
         {
-            CreatorMode = false;
             SelectedTea = await response.Content.ReadFromJsonAsync<Tea>();
             teas = await GetTeas();
             toastService.ShowSuccess("Added!");
@@ -98,6 +96,5 @@
     void ShowCreateMode()
     {
         SelectedTea = new();
-        CreatorMode = true;
     }
 }
